@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
+using ToDoListApp.Models;
 
 namespace ToDoListApp
 {
@@ -22,11 +25,16 @@ namespace ToDoListApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
+            var connection = @"Server=localhost;Database=ToDoList;Trusted_Connection=True;ConnectRetryCount=0";
+            services.AddDbContext<MyDatabaseContext>(options => options.UseSqlServer(connection));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
+            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddDebug();
+
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -43,7 +51,7 @@ namespace ToDoListApp
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=ToDo}/{action=Index}/{id?}");
             });
         }
     }
