@@ -25,7 +25,8 @@ namespace ToDoListApp
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var connection = @"Server=localhost;Database=ToDoList;Trusted_Connection=True;ConnectRetryCount=0";
+            //var connection = @"Server=localhost;Database=ToDoList;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=tcp:kavisample.database.windows.net,1433;Initial Catalog=ToDoList;Persist Security Info=False;User ID=kavinambiar;Password=Deepak020895;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
             services.AddDbContext<MyDatabaseContext>(options => options.UseSqlServer(connection));
         }
 
