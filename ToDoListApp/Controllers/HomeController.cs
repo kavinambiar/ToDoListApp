@@ -17,14 +17,14 @@ namespace ToDoListApp.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "The To-Do-List Web App";
 
             return View();
         }
 
         public IActionResult Contact()
         {
-            ViewData["Message"] = "Your contact page.";
+            ViewData["Message"] = "Please contact Kavitha Nambiar at kavithamohan.nambiar@gmail.com.";
 
             return View();
         }
